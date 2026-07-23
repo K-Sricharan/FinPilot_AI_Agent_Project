@@ -1,0 +1,8 @@
+mcp
+openai
+pandas
+openpyxl
+pdfplumber
+streamlit
+python-dotenv
+nest_asyncio
