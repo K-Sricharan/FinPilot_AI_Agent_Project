@@ -14,13 +14,13 @@ The project consists of three core components:
 
 ## Intelligent Routing Workflow
 
-When a user submits a prompt, the system executes the following operational pipeline:
+When a user enters a query, the system receives and processes it through an automated three-stage routing mechanism:
 
-First, Intent Classification is performed. The Supervisor Agent sends the user query to the classification router. The router evaluates the message and classifies it into one of four intent types: BUDGET_AGENT for expense queries, TAX_AGENT for tax queries, HYBRID for requests combining personal expenses with tax optimization, or GENERAL for conversational prompts.
+First, Query Reception and Intent Classification are performed. The user's query is received by the Supervisor Agent, which forwards the message to the Llama 3.3 70B language model. The model analyzes the intent and categorizes the query into BUDGET_AGENT for expenses, TAX_AGENT for tax calculations, HYBRID for queries spanning both domains, or GENERAL for standard conversation.
 
-Second, Agent Delegation takes place. For BUDGET_AGENT queries, the supervisor invokes the Budget Analysis Agent's async MCP client connection. For TAX_AGENT queries, the supervisor invokes the Tax Planning Agent's LangGraph graph runner. For GENERAL queries, the supervisor provides direct guidance regarding available system capabilities.
+Second, Routing and Agent Execution take place. Based on the classification, the Supervisor Agent forwards the query to the correct target agent. BUDGET_AGENT queries are sent to the Budget Analysis Agent to execute MCP tools on statement files and SQLite databases. TAX_AGENT queries are sent to the Tax Planning Agent to run LangGraph workflows and FAISS vector RAG retrieval.
 
-Third, Hybrid Orchestration occurs when a user asks a question that spans both domains, such as calculating tax savings based on actual rent payments recorded in bank statements. In this scenario, the supervisor first queries the Budget Analysis Agent to extract a data summary of relevant expenses. It then feeds that summary alongside the original question into the Tax Planning Agent, producing a unified report covering both data breakdown and tax advice.
+Third, Hybrid Processing is executed when a query requires data from both specialized agents. In this case, the Supervisor Agent first calls the Budget Analysis Agent to gather spending figures, then passes those financial details into the Tax Planning Agent to generate customized tax planning recommendations.
 
 ## Installation and Configuration
 
