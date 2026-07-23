@@ -8,8 +8,8 @@ load_dotenv()
 api_key = os.getenv("NVIDIA_API_KEY")
 
 llm = ChatNVIDIA(
-    model="google/diffusiongemma-26b-a4b-it",
+    model="meta/llama-3.3-70b-instruct",
     api_key=api_key,
     temperature=0.1,
-    max_tokens=512
+    max_tokens=1024
 )
